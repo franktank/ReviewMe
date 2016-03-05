@@ -1,0 +1,33 @@
+<h1 class="prop-tile pull-left margin0"><%= @restaurant.name %></h1><br />
+<div class="clearfix padding030 row-fluid">
+	<ul >
+		<li class="info-label clearfix"><span>Category:</span>
+			<span><%= @restaurant.category.name %></span></li>
+		<li class="info-label clearfix"><span >Website:</span>
+			<span></span></li>
+		<li class="info-label clearfix"><span >Description:</span>
+			<span><%= @restaurant.description %></span></li>
+	</ul>
+
+	<ul >
+		<li class="info-label clearfix"><span>Phone:</span>
+			<span><%= @restaurant.phone %></span></li>
+		<li class="info-label clearfix"><span >Email:</span>
+			<span><%= @restaurant.email %></span></li>
+		<li class="info-label clearfix"><span >Address:</span>
+			<span>
+			<%= @restaurant.address1 %><br />
+			<%= @restaurant.address2 %><br />
+			<%= @restaurant.city %><br />
+			<%= @restaurant.state %><br />
+			<%= @restaurant.zipcode %><br />
+			</span>
+		</li>
+	</ul>
+	<div class="clearfix padding30">
+		<h3>Reviews</h3>
+		<% @reviews.each do |review| %>
+			<%= review.comment %>
+		<% end %>
+	</div>				
+</div>

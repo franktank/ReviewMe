@@ -1,4 +1,6 @@
+<%= image_tag @restaurant.image_url %>
 <h1 class="prop-tile pull-left margin0"><%= @restaurant.name %></h1><br />
+<span class="prop-price pull-right serif italic star-rating" data-score=<%= @avg_rating %>></span>
 <div class="clearfix padding030 row-fluid">
 	<ul >
 		<li class="info-label clearfix"><span>Category:</span>
@@ -25,9 +27,32 @@
 		</li>
 	</ul>
 	<div class="clearfix padding30">
+		<%= link_to "Write a Review", new_restaurant_review_path(@restaurant), class: "btn btn-small" %>
 		<h3>Reviews</h3>
-		<% @reviews.each do |review| %>
-			<%= review.comment %>
+		<% if @reviews.blank? %>
+			<p>No reviews tet!</p>
+		<% else %>
+			<table class="table">
+				<thead>
+					<tr>
+						<th class="col-mid-3"></th>
+						<th class="col-mid-9"></th>
+					</tr>
+				</thead>
+				<tbody>
+					<% @reviews.each do |review| %>
+					<tr>
+						<td>
+							<h5><%= "#{review.user.first_name} #{review.user.last_name}" %></h5>
+						</td>
+						<td>
+							<div class="star-rating" data-score=<%= review.rating %>></div>
+							<%= review.comment %>
+						</td>
+					</tr>
+					<% end %>
+				</tbody>
+			</table>
 		<% end %>
 	</div>				
 </div>

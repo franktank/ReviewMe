@@ -28,27 +28,20 @@
             <ul>
               <li class="span1_of_1">
                  <!--start section_room-->
-                 <form>
-                  <input type="text" class="textbox" value="Resturant Name" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Resturant Name';}">
-                </form>
-               </li>
-              <li class="span1_of_1">
-                 <!--start section_room-->
-                 <div class="section_room">
-                    <select id="country" onchange="change_country(this.value)" class="frm-field required">
-                      <option value="null">Enter City Name</option>
-                      <option value="null">popular areas</option>
-                      <option value="AX">Maroubra</option>
-                      <option value="AX">Ultimo</option>
-                    </select>
-                 </div>
+                <%= form_tag search_restaurants_path, method: :get do |f| %>
+                  <%= text_field_tag :search, nil, placeholder: "steaks, burgers, hot dogs, etc" %>
+                  <%= text_field_tag :location, nil, placeholder: "denver, miami, etc" %>
+                  <%= select_tag :category, options_for_select(Category.all.map{ |c| [c.name, c.id]}) %>
+                  <%= submit_tag "Search"  %>
+                <% end %>  
                </li>
                <li class="span1_of_3">
+                   
                   <div class="date_btn">
            
                     <%= link_to "Write a Review", new_restaurant_path, class: "btn btn-info navbar-btn" %>
    
-                    </form>
+                    
                   </div>
                </li>
                 <div class="clearfix"></div>

@@ -10,7 +10,11 @@
                 <%= f.label :email %><br />
                 <%= f.email_field :email, autofocus: true %>
  
-
+                <%= f.label :first_name %><br />
+                <%= f.text_field :first_name %>
+                
+                <%= f.label :last_name %><br />
+                <%= f.text_field :last_name %>
            
                 <%= f.label :password %>
                 <% if @minimum_password_length %>

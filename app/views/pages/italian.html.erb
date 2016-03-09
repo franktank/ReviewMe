@@ -1,0 +1,36 @@
+
+<!-- about -->
+<div class="orders">
+	<div class="container">
+	<% if @italian_restaurants.blank? %>
+		<h3>Couldn't find a restaurant with your search criteria!</h3>
+	<% else %>
+		<% @italian_restaurants.each do |restaurant| %>
+
+			<div class="order-top">
+				<% if restaurant.image_url.present? %>
+					<li class="im-g"><%= link_to image_tag(restaurant.image_url.to_s), restaurant %></li>
+				<% else %>
+					<%= link_to image_tag("http://placehold.it/370x210"), restaurant %>
+				<% end %>
+				<li class="data"><h4><%= link_to restaurant.name, restaurant %></h4>
+					<ul >
+						<li class="info-label clearfix"><span>Phone:</span> 
+							<span><%= restaurant.phone %></span></li>
+						<li class="info-label clearfix"><span >Email:</span> 
+							<span><%= restaurant.email %></span></li>
+						<li class="info-label clearfix"><span >Location:</span> 
+							<span><%= restaurant.city.capitalize %>, <%= restaurant.state.upcase %></span></li>	
+					</ul>
+				</li>
+				<li class="bt-nn">
+					<a class="morebtn hvr-rectangle-in" href="orders.html">Explore</a>
+				</li>
+				<div class="clearfix"></div>
+			</div>
+		<% end %>
+	<% end %>
+	</div>
+</div>
+<!-- about -->	
+ 

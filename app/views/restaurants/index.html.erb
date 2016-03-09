@@ -54,61 +54,129 @@
 <!-- banner -->
 <!-- latis -->
   <div class="latis">
+    <h2 class="section-title">Restaurants</h2>
+    <h3><%= link_to "View All", search_restaurants_path, class: "btn btn-info navbar-btn" %></h3>
     <div class="container">
+    <% @restaurants.last(3).each do |restaurant| %>  
     <div class="col-md-4 latis-left">
-      <h3>Maecenas ornare enim</h3>
-      <img src="images/4.jpg" class="img-responsive" alt="">
-      <div class="special-info grid_1 simpleCart_shelfItem">
-        <p>Cum sociis natodiculus mus.rhoncus egestas ac sit </p>
-        <div class="cur">
-          <div class="cur-left">
-            <div class="item_add"><span class="item_price"><a class="morebtn hvr-rectangle-in" href="#">Add to cart</a></span></div>
-          </div>
-          <div class="cur-right">
-            <div class="item_add"><span class="item_price"><h6>only $45.00</h6></span></div>
-          </div>
-            <div class="clearfix"> </div>
-        </div>
+    <div class="order-top">
+        <% if restaurant.image_url.present? %>
+          <li class="im-g"><%= link_to image_tag(restaurant.image_url.to_s), restaurant %></li>
+        <% else %>
+          <%= link_to image_tag("http://placehold.it/370x210"), restaurant %>
+        <% end %>
+        <li class="data"><h4><%= link_to restaurant.name, restaurant %></h4>
+          <ul >
+            <li class="info-label clearfix"><span>Phone:</span> 
+              <span><%= restaurant.phone %></span></li>
+            <li class="info-label clearfix"><span >Email:</span> 
+              <span><%= restaurant.email %></span></li>
+            <li class="info-label clearfix"><span >Location:</span> 
+              <span><%= restaurant.city.capitalize %>, <%= restaurant.state.upcase %></span></li>
+            <li class="info-label clearfix"><span >Category:</span> 
+              <span><%= restaurant.category.name %></span></li>   
+          </ul>
+        </li>
+        <div class="clearfix"></div>
       </div>
     </div>
+    <% end %>
+      <div class="clearfix"> </div>
+
+
+  </div>
+  </div>
+    <div class="latis">
+    <div class="container">
+    <% @restaurants.order(:id).reverse_order.limit(3).offset(3).  each do |restaurant| %>  
     <div class="col-md-4 latis-left">
-      <h3>Dis parturient montes</h3>
-      <img src="images/1.jpg" class="img-responsive" alt="">
-      <div class="special-info grid_1 simpleCart_shelfItem">
-        <p>Cum sociis natodiculus mus.rhoncus egestas ac sit </p>
-        <div class="cur">
-          <div class="cur-left">
-            <div class="item_add"><span class="item_price"><a class="morebtn hvr-rectangle-in" href="#">Add to cart</a></span></div>
-          </div>
-          <div class="cur-right">
-            <div class="item_add"><span class="item_price"><h6>only $55.00</h6></span></div>
-          </div>
-            <div class="clearfix"> </div>
-        </div>
+    <div class="order-top">
+        <% if restaurant.image_url.present? %>
+          <li class="im-g"><%= link_to image_tag(restaurant.image_url.to_s), restaurant %></li>
+        <% else %>
+          <%= link_to image_tag("http://placehold.it/370x210"), restaurant %>
+        <% end %>
+        <li class="data"><h4><%= link_to restaurant.name, restaurant %></h4>
+          <ul >
+            <li class="info-label clearfix"><span>Phone:</span> 
+              <span><%= restaurant.phone %></span></li>
+            <li class="info-label clearfix"><span >Email:</span> 
+              <span><%= restaurant.email %></span></li>
+            <li class="info-label clearfix"><span >Location:</span> 
+              <span><%= restaurant.city.capitalize %>, <%= restaurant.state.upcase %></span></li>
+            <li class="info-label clearfix"><span >Category:</span> 
+              <span><%= restaurant.category.name %></span></li>   
+          </ul>
+        </li>
+        <div class="clearfix"></div>
       </div>
     </div>
-    <div class="col-md-4 latis-left">
-      <h3>Curabitur congue blandit</h3>
-      <img src="images/3.jpg" class="img-responsive" alt="">
-      <div class="special-info grid_1 simpleCart_shelfItem">
-        <p>Cum sociis natodiculus mus.rhoncus egestas ac sit </p>
-        <div class="cur">
-          <div class="cur-left">
-            <div class="item_add"><span class="item_price"><a class="morebtn hvr-rectangle-in" href="#">Add to cart</a></span></div>
-          </div>
-          <div class="cur-right">
-            <div class="item_add"><span class="item_price"><h6>only $65.00</h6></span></div>
-          </div>
-            <div class="clearfix"> </div>
-        </div>
-      </div>
-    </div>
+    <% end %>
       <div class="clearfix"> </div>
 
 
   </div>
   </div>
 <!-- latis -->
+
+<div class="container">
+  <div class="row">
+    <div class="home-bottom-top">
+      <div class="span4">
+        <div class="info-box">
+          <h2 class="section-title">Italian</h2>
+          <% @italian_restaurants.limit(5).each do |restaurant| %>
+            <ul class="more-info clearfix">
+              <li class="info-label clearfix"><%= link_to restaurant.name, restaurant %>
+                <% if restaurant.reviews.present? %>
+                  <span class="qty pull-right star-rating" data-score=<%= restaurant.reviews.average(:rating).round(2) %>></span>
+                <% else %>
+                  <span class="qty pull-right">No reviews yet!</span>
+                <% end %>
+              </li>    
+            </ul>
+          <% end %>
+          <%= link_to "Continue &raquo".html_safe, italian_path %>
+        </div>
+      </div>
+         <div class="span4">
+        <div class="info-box">
+          <h2 class="section-title">Greek</h2>
+          <% @greek_restaurants.limit(5).each do |restaurant| %>
+            <ul class="more-info clearfix">
+              <li class="info-label clearfix"><%= link_to restaurant.name, restaurant %>
+                <% if restaurant.reviews.present? %>
+                  <span class="qty pull-right star-rating" data-score=<%= restaurant.reviews.average(:rating).round(2) %>></span>
+                <% else %>
+                  <span class="qty pull-right">No reviews yet!</span>
+                <% end %>
+              </li>    
+            </ul>
+          <% end %>
+            <%= link_to "Continue &raquo".html_safe, greek_path %>
+        </div>
+      </div>   <div class="span4">
+        <div class="info-box">
+          <h2 class="section-title">Chinese</h2>
+          <% @chinese_restaurants.limit(5).each do |restaurant| %>
+            <ul class="more-info clearfix">
+              <li class="info-label clearfix"><%= link_to restaurant.name, restaurant %>
+                <% if restaurant.reviews.present? %>
+                  <span class="qty pull-right star-rating" data-score=<%= restaurant.reviews.average(:rating).round(2) %>></span>
+                <% else %>
+                  <span class="qty pull-right">No reviews yet!</span>
+                <% end %>
+              </li>    
+            </ul>
+          <% end %>
+          <%= link_to "Continue &raquo".html_safe, chinese_path %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 <!-- feature -->
 <div class="feature">
     <div class="container">
@@ -193,46 +261,4 @@
     </div>
   </div>
 <!-- feature -->
-<!-- magnust -->
-  <div class="magnust">
-    <div class="container">
-      <h3>Nascetur ridiculus mus</h3>
-    <div class="col-md-4 magnust-top">
-
-      <div class="magnust-left">
-        <img src="images/9b.jpg" class="img-responsive" alt="">
-      </div>
-      <div class="magnust-right">
-        <h4><a href="#">Cites of the</a></h4>
-        <p> Lorem Ipsum passage, and going through the cites of the undoubtable source. Lorem sections</p>
-        <a class="see" href="#">See More</a>
-      </div>
-        <div class="clearfix"> </div>
-    </div>
-    <div class="col-md-4 magnust-top">
-      <div class="magnust-left">
-        <img src="images/8b.jpg" class="img-responsive" alt="">
-      </div>
-      <div class="magnust-right">
-        <h4><a href="#">Lorem Ipsum</a></h4>
-        <p> Lorem Ipsum passage, and going through the cites of the undoubtable source. Lorem sections</p>
-        <a class="see" href="#">See More</a>
-      </div>
-        <div class="clearfix"> </div>
-    </div>
-    <div class="col-md-4 magnust-top">
-      <div class="magnust-left">
-        <img src="images/10b.jpg" class="img-responsive" alt="">
-      </div>
-      <div class="magnust-right">
-        <h4><a href="#">Will uncove</a></h4>
-        <p> Lorem Ipsum passage, and going through the cites of the undoubtable source. Lorem sections</p>
-        <a class="see" href="#">See More</a>
-      </div>
-        <div class="clearfix"> </div>
-    </div>
-      <div class="clearfix"> </div>
-  </div>
-  </div>
-<!-- magnust -->
 

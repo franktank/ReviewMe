@@ -1,5 +1,10 @@
 <%= image_tag @restaurant.image_url %>
 <h1 class="prop-tile pull-left margin0"><%= @restaurant.name %></h1><br />
+	<% if current_user.try(:admin?) %>
+		<small><%= link_to "Edit", edit_restaurant_path, class: "btn btn-primary btn-mini" %></small>
+		<small><%= link_to "Delete", restaurant_path, method: :delete, data: {confirm: "Are you sure you want to delete?"}, class: "btn btn-danger btn-mini" %></small>
+	<% else %>
+	<% end  %>
 <span class="prop-price pull-right serif italic star-rating" data-score=<%= @avg_rating %>></span>
 <div class="clearfix padding030 row-fluid">
 	<ul >
@@ -54,5 +59,11 @@
 				</tbody>
 			</table>
 		<% end %>
+		<div class="span4">
+			<div class="widget map box-container padding30">
+				<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d93349.4556489942!2d<%= @restaurant.longitude %>!3d<%= @restaurant.latitude %>!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sus!4v1457503280750" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+			</div>
+		</div>
+
 	</div>				
 </div>
